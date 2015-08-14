@@ -1,8 +1,16 @@
 Facter.add(:have_psql) do
 
-    confine :kernel => %w{Linux OpenBSD SunOS}
   setcode do
+    confine :kernel => %w{Linux SunOS}
     if Facter::Util::Resolution.exec(Facter.value('ps')).match(/^postgres/)
+        "true"
+    else
+        "false"
+    end
+  end
+  setcode do
+    confine :kernel => %w{OpenBSD}
+    if Facter::Util::Resolution.exec(Facter.value('ps')).match(/^_postgresql/)
         "true"
     else
         "false"
