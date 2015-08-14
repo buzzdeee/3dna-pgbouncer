@@ -49,7 +49,7 @@ Here, list the classes, types, providers, facts, etc contained in your module. T
 
 ##Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+The module supports osfamilies Debian, RedHat, Suse and OpenBSD.
 
 ##Development
 

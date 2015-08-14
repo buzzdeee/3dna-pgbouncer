@@ -31,8 +31,15 @@ class pgbouncer::params {
       $group           = 'pgbouncer'
       $unix_socket_dir = '/tmp'
     }
+    'OpenBSD': {
+      $logfile         = '/var/log/pgbouncer/pgbouncer.log'
+      $pidfile         = '/var/run/pgbouncer/pgbouncer.pid'
+      $owner           = '_pgbouncer'
+      $group           = '_pgbouncer'
+      $unix_socket_dir = '/tmp'
+    }
     default: {
-      fail("${::operatingsystem} not supported")
+      fail("${::module_name}: OS family ${::osfamily} not supported")
     }
   }
 }
