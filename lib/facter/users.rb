@@ -1,9 +1,11 @@
 Facter.add(:psql_user) do
-  case :kernel
-    when 'OpenBSD'
-      return '_postgresql'
-    else
-      return 'postgres'
+  setcode do
+    case :kernel
+      when 'OpenBSD'
+        '_postgresql'
+      else
+        'postgres'
+    end
   end
 end
 
