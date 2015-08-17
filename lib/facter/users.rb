@@ -1,16 +1,15 @@
-Facter.add(:have_psql) do
-
-  setcode do
-    confine :kernel => %w{Linux SunOS}
-    if Facter::Util::Resolution.exec(Facter.value('ps')).match(/^postgres/)
-        "true"
-    else
-        "false"
-    end
+Facter.add(:psql_user) do
+  case :kernel
+    when 'OpenBSD'
+      psql_user='_postgresql'
+    default: psql_user='postgres'
   end
+end
+
+Facter.add(:have_psql) do
   setcode do
-    confine :kernel => %w{OpenBSD}
-    if Facter::Util::Resolution.exec(Facter.value('ps')).match(/^_postgresql/)
+    confine :kernel => %w{Linux OpenBSD SunOS}
+    if Facter::Util::Resolution.exec(Facter.value('ps')).match(/^#{psql_user}/)
         "true"
     else
         "false"
