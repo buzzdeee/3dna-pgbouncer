@@ -1,9 +1,9 @@
 Facter.add(:psql_user) do
   case :kernel
     when 'OpenBSD'
-      '_postgresql'
+      return '_postgresql'
     else
-      'postgres'
+      return 'postgres'
   end
 end
 
