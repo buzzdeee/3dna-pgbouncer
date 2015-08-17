@@ -10,6 +10,7 @@ end
 Facter.add(:have_psql) do
   setcode do
     confine :kernel => %w{Linux OpenBSD SunOS}
+    psql_user = Facter.value(:psql_user)
     if Facter::Util::Resolution.exec(Facter.value('ps')).match(/^#{psql_user}/)
         "true"
     else
