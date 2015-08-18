@@ -1,6 +1,6 @@
 Facter.add(:psql_user) do
   setcode do
-    case :kernel
+    case Facter.value(:kernel)
       when 'OpenBSD'
         '_postgresql'
       else
