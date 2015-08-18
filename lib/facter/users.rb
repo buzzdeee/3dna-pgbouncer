@@ -25,7 +25,6 @@ Facter.add(:pgusers_array) do
   confine :have_psql => "true"
   setcode do
     psql_user = Facter.value(:psql_user)
-    print "ARRAY: the user: #{psql_user}"
     pgusers_array = Facter::Util::Resolution.exec("psql -qAtX -U #{psql_user} -d postgres -c 'SELECT usename from pg_shadow where passwd is not null order by 1'").split("\n")
     pgusers_array
   end
@@ -36,7 +35,6 @@ Facter.add(:pgusers_hash) do
   setcode do
     pgusers_array = Facter.value(:pgusers_array)
     psql_user = Facter.value(:psql_user)
-    print "HASH: the user: #{psql_user}"
     pgusers_hash = {}
 
     pgusers_array.each do |user|
